@@ -1,0 +1,55 @@
+
+1. The Architecture Pattern: "Database-per-Tenant"
+Concept: This is a recognized pattern where each tenant (organization) gets its own isolated database. It provides the highest data security and isolation.
+
+Source Validation:
+
+MongoDB Official Documentation: They explicitly list "One Database per Tenant" as a standard architectural strategy for multi-tenancy.
+
+Reference: MongoDB Atlas Multi-Tenant Architecture Guide > "Design Pattern: One Database per Tenant".
+
+--- https://www.mongodb.com/docs/atlas/build-multi-tenant-arch/
+
+
+
+
+2. The Context Mechanism: "Thread-Local Storage"
+Concept: Using ThreadLocal to store the Tenant ID is the standard way Spring handles "request-scoped" data.
+
+Proof it's Standard:
+
+Spring Security: If your senior asks if ThreadLocal is safe, tell them: "It is the exact same mechanism Spring Security uses for SecurityContextHolder to store the current logged-in user."
+
+Reference: Spring Framework Documentation > Request Context Holder.
+-- https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/context/request/RequestContextHolder.html
+
+
+
+
+
+3. The Routing Logic: "Abstract Routing / Factory Override"
+Concept: Overriding the Database Factory to switch databases dynamically.
+
+Proof it's Standard:
+
+In the SQL (JPA) world, this is known as AbstractRoutingDataSource.
+
+In the MongoDB world, it is the standard extension of SimpleMongoClientDatabaseFactory.
+
+Reference: Spring Data MongoDB API > MongoDatabaseFactory Interface. (The interface is designed specifically to be overridden for cases like this).
+
+--https://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/MongoDatabaseFactory.html
+
+
+
+
+
+
+4. The Interceptor: "Cross-Cutting Concern"
+Concept: Using an Interceptor to strip the Tenant ID from the URL is standard AOP (Aspect Oriented Programming) practice in Spring MVC.
+
+Proof it's Standard:
+
+Reference: Spring Framework Documentation > Web MVC > Interceptors.
+
+-- https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/interceptors.html
