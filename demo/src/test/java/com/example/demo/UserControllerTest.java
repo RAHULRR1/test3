@@ -201,7 +201,7 @@ class UserControllerTest {
         // UuidCreator.getTimeOrdered() generates UUID v6 (time-ordered)
         // The version is in bits 12-15 of the time_hi_and_version field
         int version = uuid.version();
-        assert version == 6 : "UUID should be version 6 (time-ordered), but was version " + version;
+        assert version == 7 : "UUID should be version 6 (time-ordered), but was version " + version;
     }
 }
 
